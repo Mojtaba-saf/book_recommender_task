@@ -1,0 +1,28 @@
+select genre, avg(rating) as rating
+               from reviews as r
+                        join books as b on r.book_id = b.id
+               where r.user_id = 1
+               group by genre
+
+
+select books.title, books.author, books.genre, rating as possible_rate
+from books
+         join (select genre, sum(rating) as rating
+               from reviews as r
+                        join books as b on r.book_id = b.id
+               where r.user_id = 1
+               group by genre) genre_level on books.genre=genre_level.genre where id not in (select book_id from reviews where user_id=1) order by rating desc , books.genre;
+
+
+
+select avg(abs(t1.rating-t2.rating))
+from ((select genre, round(avg(rating), 2) as rating
+            from reviews as r
+                     join books as b on r.book_id = b.id
+            where r.user_id = 1
+            group by genre) as t1
+               join (select genre, round(avg(rating), 2) as rating
+                     from reviews as r
+                              join books as b on r.book_id = b.id
+                     where r.user_id = 2
+                     group by genre) as t2 on t1.genre = t2.genre)
