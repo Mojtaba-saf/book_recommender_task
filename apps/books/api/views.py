@@ -100,6 +100,7 @@ class BookUserSuggestionListAPIView(BookSuggestionBaseAPIView):
                                           group by t2.user_id
                                           order by relation_score) as user_score on reviews.user_id = user_score.user_id
                            where reviews.user_id != {self.request.user.id}) as book_relation_score on book_relation_score.book_id = books.id
+            where rating >= 3
             order by relation_score, rating desc;
             """
         )
