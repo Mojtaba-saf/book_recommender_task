@@ -10,7 +10,12 @@ class Book(Model):
         db_table = "books"
         verbose_name = "Book"
         verbose_name_plural = "Books"
-        constraints = [UniqueConstraint(fields=["title", "author", "genre"], name="book_title_author_genre_unique")]
+        constraints = [
+            UniqueConstraint(
+                fields=["title", "author", "genre"],
+                name="book_title_author_genre_unique",
+            )
+        ]
 
     title = CharField(max_length=50)
     author = CharField(max_length=50)

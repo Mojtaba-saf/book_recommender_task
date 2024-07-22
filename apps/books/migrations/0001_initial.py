@@ -7,26 +7,36 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Book',
+            name="Book",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=50)),
-                ('author', models.CharField(max_length=50)),
-                ('genre', models.CharField(max_length=50)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=50)),
+                ("author", models.CharField(max_length=50)),
+                ("genre", models.CharField(max_length=50)),
             ],
             options={
-                'verbose_name': 'Book',
-                'verbose_name_plural': 'Books',
-                'db_table': 'books',
+                "verbose_name": "Book",
+                "verbose_name_plural": "Books",
+                "db_table": "books",
             },
         ),
         migrations.AddConstraint(
-            model_name='book',
-            constraint=models.UniqueConstraint(fields=('title', 'author', 'genre'), name='book_title_author_genre_unique'),
+            model_name="book",
+            constraint=models.UniqueConstraint(
+                fields=("title", "author", "genre"),
+                name="book_title_author_genre_unique",
+            ),
         ),
     ]

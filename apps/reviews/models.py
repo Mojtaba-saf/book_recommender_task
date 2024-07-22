@@ -1,4 +1,12 @@
-from django.db.models import Model, ForeignKey, CASCADE, PositiveSmallIntegerField, UniqueConstraint, CheckConstraint, Q
+from django.db.models import (
+    Model,
+    ForeignKey,
+    CASCADE,
+    PositiveSmallIntegerField,
+    UniqueConstraint,
+    CheckConstraint,
+    Q,
+)
 
 from apps.books.models import Book
 from apps.users.models import User
@@ -8,7 +16,12 @@ from apps.users.models import User
 class Review(Model):
     class Meta:
         db_table = "reviews"
-        constraints = [UniqueConstraint(fields=("book", "user"),name="unique_user_book_review"), CheckConstraint(check=Q(rating__gte=0,rating__lte=5), name="rating_max_min")]
+        constraints = [
+            UniqueConstraint(fields=("book", "user"), name="unique_user_book_review"),
+            CheckConstraint(
+                check=Q(rating__gte=1, rating__lte=5), name="rating_max_min"
+            ),
+        ]
 
     book = ForeignKey(Book, on_delete=CASCADE)
     user = ForeignKey(User, on_delete=CASCADE)
