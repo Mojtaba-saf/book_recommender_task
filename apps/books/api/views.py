@@ -71,7 +71,7 @@ class BookAuthorSuggestionListAPIView(BookSuggestionBaseAPIView):
                                           join books b on b.id = reviews.book_id
                                  where user_id = {self.request.user.id}
                                  group by author) as author_scores
-                           where author_rating >= 2) author_score on books.author = author_score.author
+                           where author_rating >= 3) author_score on books.author = author_score.author
             where books.id not in (select book_id from reviews where user_id = {self.request.user.id})
             order by author_score.author_rating desc, books.author;
             """
